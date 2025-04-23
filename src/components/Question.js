@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function Question({ question, answers, onAnswered }) {
+function Question({ question, answers = [], onAnswered }) {
   const [timeRemaining, setTimeRemaining] = useState(10);
 
   useEffect(() => {
@@ -21,15 +21,16 @@ function Question({ question, answers, onAnswered }) {
 
   return (
     <div>
-      <h1>{question}</h1>
+      {/* Access the `prompt` property if `question` is an object */}
+      <h1>{typeof question === "string" ? question : question.prompt}</h1>
       <ul>
         {answers.map((answer, index) => (
           <li key={index}>{answer}</li>
         ))}
       </ul>
-      <p>Time Remaining: {timeRemaining} seconds</p>
+      <p>{timeRemaining} seconds remaining</p>
     </div>
-  );
+  ); // <-- Ensure this closing parenthesis is here
 }
 
 export default Question;
